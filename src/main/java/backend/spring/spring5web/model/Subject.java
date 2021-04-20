@@ -17,6 +17,7 @@ public class Subject {
     private Set<Student> students = new HashSet<>();
 
     public Subject() {
+
     }
 
     public Subject(long id, String name, Set<Student> students) {
