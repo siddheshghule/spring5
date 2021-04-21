@@ -16,16 +16,19 @@ public class Subject {
     @ManyToMany(mappedBy = "subjects")
     private Set<Student> students = new HashSet<>();
 
+    @ManyToMany(mappedBy = "subjects")
+    private Set<Teacher> teacher = new HashSet<>();
+
     public Subject() {
 
     }
 
-    public Subject(long id, String name, Set<Student> students) {
+    public Subject(long id, String name, Set<Student> students, Set<Teacher> teacher) {
         this.id = id;
         Name = name;
         this.students = students;
+        this.teacher = teacher;
     }
-
 
     public Subject(long id, String name) {
         this.id = id;
@@ -56,17 +59,29 @@ public class Subject {
         this.students = students;
     }
 
+
+    public Set<Teacher> getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Set<Teacher> teacher) {
+        this.teacher = teacher;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Subject subject = (Subject) o;
-        return id == subject.id;
+        return id == subject.id &&
+                Objects.equals(Name, subject.Name) &&
+                Objects.equals(students, subject.students) &&
+                Objects.equals(teacher, subject.teacher);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, Name, students, teacher);
     }
 
     @Override
@@ -75,6 +90,8 @@ public class Subject {
                 "id=" + id +
                 ", Name='" + Name + '\'' +
                 ", students=" + students +
+                ", teacher=" + teacher +
                 '}';
     }
+
 }
